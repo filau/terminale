@@ -6,4 +6,4 @@ T°A - <a href="https://larmand.fr/" target="_blank">Lycée Louis Armand (Nogent
 * `.dart` : [Dart](https://dart.dev/)
 * `.py` : [Python](https://www.python.org/)
   
-*<ins>Attention :</ins> Ces programmes ont été réalisés dans un cadre purement scolaires. Certains pourraient donc être bien plus complets et ne reflètent pas un niveau réel d'algorithmique et de programmation.*
+*<ins>Attention :</ins> Ces programmes ont été réalisés dans un cadre purement scolaires. Certains pourraient donc être bien plus complets et ne reflètent pas un niveau réel en algorithmique et en programmation.*
