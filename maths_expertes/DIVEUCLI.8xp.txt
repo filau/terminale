@@ -1,0 +1,41 @@
+EffÉcran
+Disp " FLA  Solveur de division"
+Disp "       euclidienne."
+Disp "--------------------------"
+Disp ""
+Disp "Entrer le nombre à diviser"
+Input N
+Disp "Entrer le diviseur"
+Input D
+If D≠0
+Then
+N/D→F
+partEnt(F)→K
+N-(D*K)→R
+EffÉcran
+Disp ""
+Disp "k = ",K
+Disp "Reste = ",R
+Else
+EffÉcran
+Disp ""
+Disp "Le diviseur ne peut pas"
+Disp "pas être 0."
+End
+Disp ""
+Disp ""
+Disp ""
+Disp "       (C)2020, FLA"
+Pause 
+EffÉcran
+Disp "            **"
+Disp "           *  *"
+Disp "          *    *"
+Disp "         *  +-  *"
+Disp "         *  */  *"
+Disp "          *    *"
+Disp "           *  *"
+Disp "            **"
+Disp "       (C)2020, FLA"
+Pause 
+EffÉcran
