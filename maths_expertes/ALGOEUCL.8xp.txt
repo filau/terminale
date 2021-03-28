@@ -1,0 +1,55 @@
+EffÉcran
+Disp "Algorithme d'Euclide"
+Disp ""
+Prompt A
+Prompt B
+{A,B}→L₁
+EffÉcran
+
+If A≥B
+Then
+0→K
+
+While K=0
+
+partEnt(A/B)→Q
+A-(B*Q)→R
+Disp versChaîne(A)+"="+versChaîne(B)+"*"+versChaîne(Q)+"+"+versChaîne(R)
+
+If R=0
+Then
+1→K
+Else
+B→A
+R→B
+End
+
+End
+
+Disp "PGCD("+versChaîne(L₁(1))+";"+versChaîne(L₁(2))+")="+versChaîne(B)
+Pause 
+
+Else
+
+0→K
+
+While K=0
+
+partEnt(B/A)→Q
+B-(A*Q)→R
+Disp versChaîne(B)+"="+versChaîne(A)+"*"+versChaîne(Q)+"+"+versChaîne(R)
+
+If R=0
+Then
+1→K
+Else
+A→B
+R→A
+End
+
+End
+
+Disp "PGCD("+versChaîne(L₁(1))+";"+versChaîne(L₁(2))+")="+versChaîne(A)
+Pause 
+
+End
