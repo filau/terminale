@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <!--
+        Réalisé par Firmin Launay en 2021.
+        Permet d’envoyer des « embeds » pour prévenir les membres d’un serveur Discord d’un devoir ou d’une information importante.
+        Réalisé dans le cadre de la fermeture des établissements scolaires en avril 2021.
+        /!\ Même si ce n’est pas la manière la plus « élégante » de coder, les codes HTML, CSS et JS sont situés dans le même fichier pour des raisons pratiques (le fichier est « autonome »).
+    -->
+    <head>
+        <script>
+            var matiere_emoji = { // Correspodance entre les matières et leur « emoji »
+                "Allemand": ":flag_de:",
+                "Anglais TA": ":flag_gb:",
+                "Anglais TB": ":flag_gb:",
+                "DNL anglais": ":flag_eu:",
+                "DNL histoire-géo": ":flag_eu:",
+                "Éducation physique et sportive": ":person_running:",
+                "Enseignement scientifique TA": ":microscope:",
+                "Enseignement scientifique TB": ":microscope:",
+                "Espagnol": ":flag_es:",
+                "Histoire-géographie TA": ":book:",
+                "Histoire-géographie TB": ":book:",
+                "Langues, littératures et cultures étrangères": ":earth_africa:",
+                "Mathématiques TA": ":abacus:",
+                "Mathématiques TB": ":abacus:",
+                "Mathématiques complémentaires": ":straight_ruler:",
+                "Mathématiques expertes": ":triangular_ruler:",
+                "Numérique et sciences informatiques": ":desktop:",
+                "Philosophie TA": ":brain:",
+                "Philosophie TB": ":brain:",
+                "Physique complémentaire": ":alembic:",
+                "Physique-chimie": ":test_tube:",
+                "Sciences de l’ingénieur": ":gear:",
+                "Sciences de la vie et de la Terre": ":deciduous_tree:",
+            }
+
+            var matiere_role = { // Correspondance entre les matières et le rôle à mentionner (remplacer « ID » par l’identifiant du rôle à mentionner)
+                "Allemand": "ID",
+                "Anglais TA": "ID",
+                "Anglais TB": "ID",
+                "DNL anglais": "ID",
+                "DNL histoire-géo": "ID",
+                "Éducation physique et sportive": "ID",
+                "Enseignement scientifique TA": "ID",
+                "Enseignement scientifique TB": "ID",
+                "Espagnol": "ID",
+                "Histoire-géographie TA": "ID",
+                "Histoire-géographie TB": "ID",
+                "Langues, littératures et cultures étrangères": "ID",
+                "Mathématiques TA": "ID",
+                "Mathématiques TB": "ID",
+                "Mathématiques complémentaires": "ID",
+                "Mathématiques expertes": "ID",
+                "Numérique et sciences informatiques": "ID",
+                "Philosophie TA": "ID",
+                "Philosophie TB": "ID",
+                "Physique complémentaire": "ID",
+                "Physique-chimie": "ID",
+                "Sciences de l’ingénieur": "ID",
+                "Sciences de la vie et de la Terre": "ID",
+            }
+
+            var mois_mois = { // Correspondance entre les mois écrits en lettres et en chiffres
+                "01": "janvier",
+                "02": "février",
+                "03": "mars",
+                "04": "avril",
+                "05": "mai",
+                "06": "juin",
+                "07": "juillet",
+                "08": "août",
+                "09": "septembre",
+                "10": "octobre",
+                "11": "novembre",
+                "12": "décembre",
+            }
+
+            function changeMode(el) { // Changement d’affichage lié au choix entre la diffusion d’une information ou d’un devoir
+                for (var div of document.getElementsByTagName("div")) {
+                    div.style.display = 'none';
+                }
+                document.getElementById(el[el.selectedIndex].id + "-stuff").style.display = 'block';
+            }
+
+            function send(el) { // Fonction qui déclenche l’envoi du message webhook
+                if (el.id == 'info-btn') {
+                    var nom_bot = 'Information';
+                    var pp = 'PICTO INFORMATIONS'; // À remplacer par l’URL de la « photo de profil » du webhook souhaitée lors de l’envoi d’une information
+                    var color = 2174781;
+                    var mention = '|| <@&741678968801067008> <@&749984258550005791> ||';
+                    var titre = ':information_source: ' + document.getElementById('info-title').value;
+                    var details = document.getElementById('info-description').value;
+                    var lien = document.getElementById('info-url').value;
+                }
+                else if (el.id == "devoirs-btn") {
+                    var nom_bot = 'Devoirs';
+                    var pp = 'PICTO DEVOIRS'; // À remplacer par l’URL de la « photo de profil » du webhook souhaitée lors de l’envoi d’un devoir
+                    var couleur = 12208640;
+                    var mention = '|| <@&' + matiere_role[document.getElementById('matiere').value] + '> ||';
+                    var date = document.getElementById('date').value.split('-')[2] + ' ' + mois_mois[document.getElementById('date').value.split('-')[1]];
+                    var titre = matiere_emoji[document.getElementById('matiere').value] + ' ' + document.getElementById('matiere').value + ' pour le ' + document.getElementById('date').value.split('-')[2] + ' ' + mois_mois[document.getElementById('date').value.split('-')[1]];
+                    var details = document.getElementById('description').value;
+                    var lien = document.getElementById('url').value;
+                }
+                fetch(
+                    'WEBHOOK URL', // À remplacer par l’URL du webhook
+                    {
+                        method: 'post',
+                        headers: {
+                        'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                        username: nom_bot,
+                        avatar_url: pp,
+                        content: mention,
+                        embeds: [
+                            {
+                            color: couleur,
+                            title: titre,
+                            url: lien,
+                            description: details,
+                            },
+                        ],
+                        }),
+                    }
+                    );
+                }
+        </script>
+        <style>
+            body {
+                margin-left: 100px;
+                margin-right: 100px;
+                margin-top: 100px;
+                font-family: 'Segoe UI', 'Tahoma', 'Geneva', 'Verdana', sans-serif;
+                font-size: 20px;
+            }
+            select, option, button, input, textarea {
+                font-family: 'Segoe UI', 'Tahoma', 'Geneva', 'Verdana', sans-serif;
+                font-size: 18px;
+            }
+            div {
+                display: none;
+            }
+        </style>
+    </head>
+    <body>
+        <p>
+            Type :
+            <select name="Type" id="type" onchange="changeMode(this)">
+                <option id="none">&nbsp;</option>
+                <option id="info">Information</option>
+                <option id="devoir">Devoir</option>
+            </select>
+        </p>
+        <div id="devoir-stuff">
+            <p>
+                Matière :
+                <select id="matiere"> <!-- Les matières sont données ici à titre d’exemple et peuvent être changées (les correspondances dans le code JavaScript doivent aussi être adaptées en conséquence) -->
+                    <option>&nbsp;</option>
+                    <option>Allemand</option>
+                    <option>Anglais TA</option>
+                    <option>Anglais TB</option>
+                    <option>DNL anglais</option>
+                    <option>DNL histoire-géo</option>
+                    <option>Éducation physique et sportive</option>
+                    <option>Enseignement scientifique TA</option>
+                    <option>Enseignement scientifique TB</option>
+                    <option>Espagnol</option>
+                    <option>Histoire-géographie TA</option>
+                    <option>Histoire-géographie TB</option>
+                    <option>Langues, littératures et cultures étrangères</option>
+                    <option>Mathématiques TA</option>
+                    <option>Mathématiques TB</option>
+                    <option>Mathématiques complémentaires</option>
+                    <option>Mathématiques expertes</option>
+                    <option>Numérique et sciences informatiques</option>
+                    <option>Philosophie TA</option>
+                    <option>Philosophie TB</option>
+                    <option>Physique complémentaire</option>
+                    <option>Physique-chimie</option>
+                    <option>Sciences de l’ingénieur</option>
+                    <option>Sciences de la vie et de la Terre</option>
+                </select>
+            </p>
+            <p>
+                Date de rendu :
+                <input id="date" type="date"/>
+            </p>
+            <p>
+                Description :<br/>
+                <textarea id="description" cols="80" rows="10"></textarea>
+            </p>
+            <p>
+                URL :
+                <input id="url"/>
+            </p>
+            <button onclick="send(this)" id="devoirs-btn">
+                Envoyer
+            </button>
+        </div>
+        <div id="info-stuff">
+            <p>
+                Intitulé :
+                <input id="info-title"/>
+            </p>
+            <p>
+                Description :<br/>
+                <textarea id="info-description" cols="80" rows="10"></textarea>
+            </p>
+            <p>
+                URL :
+                <input id="info-url"/>
+            </p>
+            <button onclick="send(this)" id="info-btn">
+                Envoyer
+            </button>
+        </div>
+    </body>
+</html>
