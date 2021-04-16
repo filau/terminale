@@ -1,5 +1,5 @@
 EffÉcran
-Disp " FLA  Solveur de division"
+Disp "    Solveur : division"
 Disp "       euclidienne."
 Disp "--------------------------"
 Disp ""
@@ -25,17 +25,6 @@ End
 Disp ""
 Disp ""
 Disp ""
-Disp "       (C)2020, FLA"
-Pause 
-EffÉcran
-Disp "            **"
-Disp "           *  *"
-Disp "          *    *"
-Disp "         *  +-  *"
-Disp "         *  */  *"
-Disp "          *    *"
-Disp "           *  *"
-Disp "            **"
-Disp "       (C)2020, FLA"
+Disp "       (C) 2020, FL"
 Pause 
 EffÉcran
